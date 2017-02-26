@@ -20,5 +20,6 @@ end
 
 Então(/^o produto estará no carrinho$/) do
 	click_link("Meu carrinho")
+	assert_text("Fralda Descartável Turma da Mônica Huggies Supreme Care Feminina G 32 Unidades")
 	sleep 3
 end
