@@ -28,22 +28,29 @@ Dado(/^que esteja na compra$/) do
   visit ("https://www.walmart.com.br/fralda-descartavel-turma-da-monica-huggies-supreme-care-feminina-g-32-unidades/4912973/pr")
   click_button("Adicionar ao carrinho")
   click_link("Meu carrinho")
-  find("Finalizar compra", match: :first).click
+  visit "https://www2.walmart.com.br/checkout/content/carrinho/"
+  sleep 5
+  click_button("btn-finalize-cart")
 end
 
 Dado(/^esteja efetuando o loggin$/) do
+  visit "https://www2.walmart.com.br/login?modal=true&continue=https://connect.walmart.com.br/connect/authorize?response_type=code&client_id=walmart_checkout&redirect_uri=https://www2.walmart.com.br/checkout/services/transaction/oauth/callback/walmart_checkout"
   #page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-  page.find("client-sign-in").click
-  fill_in "email", :with => "35263646801"
-  #fill_in "password", :with => "nandinho10"
+  fill_in "signinField", :with => "35263646801"
+  fill_in "password", :with => "nandinho10"
   click_button("Entrar")
-  sleep 5
+  visit "https://www2.walmart.com.br/checkout/content/#chooseAddress"
+  sleep 10
 end
 
 Quando(/^finalizá\-lo$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_button("btn-set-delivery")
+  find(".continue-button").click
+  sleep 5
 end
 
 Então(/^comprar o produto com pagamento via boleto$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  find(".icon-bank-slip-small").click
+  click_button("Finalizar compra")
+  assert_text("Seu pedido foi enviado com sucesso!")
 end
