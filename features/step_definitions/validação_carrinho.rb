@@ -31,14 +31,11 @@ Dado(/^que esteja na compra$/) do
 end
 
 Dado(/^esteja efetuando o loggin$/) do
-  new_window = window_opened_by {}
-within_window new_window do
+  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   fill_in "signinField", :with => "35263646801"
   fill_in "password", :with => "nandinho10"
   click_button("signinButtonSend")
   sleep 6
-end
-
 end
 
 Quando(/^finalizá\-lo$/) do
