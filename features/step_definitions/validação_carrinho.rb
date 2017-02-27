@@ -25,17 +25,19 @@ Então(/^o produto estará no carrinho$/) do
 end
 
 Dado(/^que esteja na compra$/) do
-  visit ("https://www.walmart.com.br/smartphone-motorola-moto-g4-play-4g-dual-xt1600-preto-dual-chip-android-marshmallow-4g-memoria-de-16gb/4586763/pr")
-  click_link("Entre")
-  sleep 5
+  visit ("https://www.walmart.com.br/fralda-descartavel-turma-da-monica-huggies-supreme-care-feminina-g-32-unidades/4912973/pr")
+  click_button("Adicionar ao carrinho")
+  click_link("Meu carrinho")
+  find("Finalizar compra", match: :first).click
 end
 
 Dado(/^esteja efetuando o loggin$/) do
-  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-  fill_in "signinField", :with => "35263646801"
-  fill_in "password", :with => "nandinho10"
-  click_button("signinButtonSend")
-  sleep 6
+  #page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+  page.find("client-sign-in").click
+  fill_in "email", :with => "35263646801"
+  #fill_in "password", :with => "nandinho10"
+  click_button("Entrar")
+  sleep 5
 end
 
 Quando(/^finalizá\-lo$/) do
