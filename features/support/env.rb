@@ -1,7 +1,11 @@
-require 'rspec'
+#require 'rspec'
 require 'cucumber'
 require 'selenium/webdriver'
+require 'capybara'
 require 'capybara/dsl'
+require 'capybara/cucumber'
+require 'pry'
+require 'site_prism'
 
 
 include Capybara::DSL

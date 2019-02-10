@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'cucumber'
-gem 'capybara'
-gem 'rspec'
-gem 'rake'
+#gem 'rspec'
+#gem 'rake'
 gem 'selenium-webdriver'
+gem 'capybara'
+gem 'chromedriver-helper'
+gem 'pry'
+gem 'site_prism', '~> 3.0'
