@@ -7,15 +7,16 @@ require 'capybara/cucumber'
 require 'pry'
 require 'site_prism'
 
-
-include Capybara::DSL
-
-Capybara.register_driver :selenium do |app|
-	Capybara::Selenium::Driver.new(app, :browser => :chrome)
+#CONFIGURANDO O DRIVER CAPYBARA
+Capybara.register_driver :chromedriver do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 
-Capybara.configure do |config|
-	config.current_driver = :selenium
-	config.default_max_wait_time = 3
-	Capybara.page.driver.browser.manage.window.maximize
-end
+#SETANDO A CONFIGURAÇÃO DO DRIVER COMO PADRÃO
+Capybara.default_driver = :chromedriver
+
+#TIMEOUT PADRÃO NA EXECUÇÃO
+Capybara.default_max_wait_time = 15
+
+#MAXIMIZAR A TELA AO INICIAR O TESTE
+Capybara.page.driver.browser.manage.window.maximize
