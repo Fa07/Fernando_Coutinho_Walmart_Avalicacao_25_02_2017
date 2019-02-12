@@ -1,36 +1,29 @@
 Dado(/^que esteja na home do site$/) do
-  visit "https:www.walmart.com.br"
+  Home = Home.new
+  Home.load
 end
 
 Dado(/^pesquise pelo produto desejado$/) do
-  fill_in "suggestion-search", :with => "Fralda Descartável Turma da Mônica Huggies Supreme Care Feminina G 32 Unidades"
-  click_button("Procurar")
-  sleep 3
+  Home.busca_produto
 end
 
 Quando(/^buscar o nome do produto$/) do
-  click_link("Fralda Descartável Turma da Mônica Huggies Supreme Care Feminina G 32 Unidades", match: :first)
-  sleep 4
+  Home.seleciona_prod
 end
 
 Quando(/^solicitar sua compra$/) do
-	click_button("Adicionar ao carrinho")
-	sleep 3
+  Home.adiciona_carrinho
 end
 
 Então(/^o produto estará no carrinho$/) do
-	click_link("Meu carrinho")
-	assert_text("Fralda Descartável Turma da Mônica Huggies Supreme Care Feminina G 32 Unidades")
-	sleep 3
+  Home.meu_carrinho
+  Home.finalizar_compra
+  Home.logar
 end
 
 Dado(/^que esteja na compra$/) do
   visit ("https://www.walmart.com.br/fralda-descartavel-turma-da-monica-huggies-supreme-care-feminina-g-32-unidades/4912973/pr")
-  click_button("Adicionar ao carrinho")
-  click_link("Meu carrinho")
-  visit "https://www2.walmart.com.br/checkout/content/carrinho/"
-  sleep 5
-  click_button("btn-finalize-cart")
+  page.find('[class="topbar-buttons open-link cart-link"]').click
 end
 
 Dado(/^esteja efetuando o loggin$/) do
@@ -40,13 +33,11 @@ Dado(/^esteja efetuando o loggin$/) do
   fill_in "password", :with => "nandinho10"
   click_button("Entrar")
   visit "https://www2.walmart.com.br/checkout/content/#chooseAddress"
-  sleep 10
 end
 
 Quando(/^finalizá\-lo$/) do
   click_button("btn-set-delivery")
   find(".continue-button").click
-  sleep 5
 end
 
 Então(/^comprar o produto com pagamento via boleto$/) do
